@@ -11,7 +11,6 @@ define([
 			this.childViews = [];
 			this.listenTo(this.collection, "reset", this.render);
 			this.listenTo(this.collection, "add", this.addOne);
-			this.collection.fetch({reset:true});
 		},
 		render: function(){
 			this.addAll();
