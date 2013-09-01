@@ -17,8 +17,9 @@ define([
 			//inject collection 
 			if(!this.songsView){
 				this.songsView = new SongsView({collection:songsCollection});
+				
 			}
-			songsCollection.fetch({reset:true});
+			
 			
 			
 			//create view instance and render it
