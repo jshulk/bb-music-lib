@@ -1,26 +1,43 @@
-define(["backbone", "views/SongView", "views/ParentView"], function(Backbone, SongView, ParentView){
+define([
+		"backbone",		
+		"views/SongView"
+		],
 
-	return ParentView.extend({
+	function(Backbone, SongView){
+
+	return Backbone.View.extend({
 		el:"#songs-list",
 		initialize: function(){
+			this.childViews = [];
 			this.listenTo(this.collection, "reset", this.render);
 			this.listenTo(this.collection, "add", this.addOne);
 		},
 		render: function(){
+			this.$el.empty();
+			this.removeAllChildViews();
 			this.addAll();
-			this.appendAllChildViews();
 			return this;
 		},
 		addAll: function(){
-			_.each(this.collection, function(song){
-				var view = new SongView({model:song});
-				this.childViews.push(view);
-			}, this);
-			
-		}
+			this.collection.each(this.addOne, this);
+		},
 		addOne: function(song){
 			var view = new SongView({model:song});
 			this.$el.append(view.render().el);
+			this.childViews.push(view);
+		},
+		removeAllChildViews: function(){
+			if(this.childViews.length){
+				_.each(this.childViews, function(view){
+					view.remove();
+				});
+				this.childViews = [];
+			}
+			
+		},
+		close: function(){
+			Backbone.View.prototype.remove.call(this, arguments);
+			this.removeAllChildViews();
 		}
 	});
 });

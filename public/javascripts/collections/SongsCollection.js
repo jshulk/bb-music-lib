@@ -1,4 +1,9 @@
-define(["backbone", "models/Song"], function(Backbone, Song){
+define([
+		"backbone", 
+		"models/Song"
+		], 
+
+	function(Backbone, Song){
 
 	var SongsCollection =  Backbone.Collection.extend({
 		url:"/songs",

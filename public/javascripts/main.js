@@ -1,4 +1,5 @@
 require.config({
+	baseUrl:"javascripts",
 	shim:{
 		underscore:{
 			exports:"_"
